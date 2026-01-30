@@ -22,8 +22,12 @@ function Navbar() {
 
   const isActive = (path) => location.pathname === path
 
+  // Pages with dark hero backgrounds need white text
+  const darkHeroPages = ['/why-us']
+  const hasDarkHero = darkHeroPages.includes(location.pathname)
+
   return (
-    <header className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+    <header className={`navbar ${isScrolled ? 'scrolled' : ''} ${!isScrolled && hasDarkHero ? 'dark-hero' : ''}`}>
       <nav className="navbar-container">
         <Link to="/" className="logo">
           <img src="/logo.png" alt="Launchpad Prep" className="logo-image" />
@@ -36,6 +40,9 @@ function Navbar() {
           </Link>
           <Link to="/about" className={`nav-link ${isActive('/about') ? 'active' : ''}`}>
             About
+          </Link>
+          <Link to="/why-us" className={`nav-link ${isActive('/why-us') ? 'active' : ''}`}>
+            Why Us
           </Link>
           <Button to="/apply" variant="primary" size="small">
             Apply Now

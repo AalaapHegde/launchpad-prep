@@ -39,6 +39,15 @@
   font-weight: 700;
   font-size: 1.25rem;
   color: var(--navy);
+  transition: color 0.3s ease;
+}
+
+.navbar.dark-hero .logo-text {
+  color: var(--white);
+}
+
+.navbar.scrolled .logo-text {
+  color: var(--navy);
 }
 
 .nav-links {
@@ -59,6 +68,24 @@
 }
 
 .nav-link.active {
+  color: var(--gold);
+}
+
+.navbar.dark-hero .nav-link {
+  color: var(--white);
+}
+
+.navbar.dark-hero .nav-link:hover,
+.navbar.dark-hero .nav-link.active {
+  color: var(--gold);
+}
+
+.navbar.scrolled .nav-link {
+  color: var(--navy);
+}
+
+.navbar.scrolled .nav-link:hover,
+.navbar.scrolled .nav-link.active {
   color: var(--gold);
 }
 

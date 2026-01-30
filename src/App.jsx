@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import About from './pages/About'
+import WhyUs from './pages/WhyUs'
 import Apply from './pages/Apply'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/why-us" element={<WhyUs />} />
           <Route path="/apply" element={<Apply />} />
         </Routes>
       </main>
