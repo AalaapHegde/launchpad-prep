@@ -1,6 +1,6 @@
 /* Hero Section */
 .hero {
-  padding: 8rem 0 4rem;
+  padding: 8rem 0 2rem;
   background: var(--gradient-hero);
   overflow: hidden;
   position: relative;
@@ -33,8 +33,8 @@
 .hero-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
+  gap: 2rem;
+  align-items: start;
   position: relative;
   z-index: 1;
 }
@@ -98,6 +98,8 @@
 
 .hero-image {
   position: relative;
+  margin-left: 3rem;
+  margin-top: -1rem;
 }
 
 .hero-image::before {
@@ -113,17 +115,20 @@
   opacity: 0.2;
 }
 
-.hero-image .image-placeholder {
+.hero-image .image-placeholder,
+.hero-image .hero-img {
   position: relative;
   z-index: 1;
   border-radius: 20px;
   box-shadow: var(--shadow-xl);
+  width: 100%;
+  height: auto;
 }
 
 /* Programs Overview */
 .programs-overview {
   background-color: var(--white);
-  padding-top: 4rem;
+  padding-top: 2rem;
   position: relative;
 }
 

@@ -25,12 +25,6 @@ function Footer() {
             </div>
 
             <div className="footer-column">
-              <h4>Programs</h4>
-              <Link to="/#research">Research Program</Link>
-              <Link to="/#counseling">College Counseling</Link>
-            </div>
-
-            <div className="footer-column">
               <h4>Contact Us</h4>
               <a href="mailto:hello@launchpadprep.com">hello@launchpadprep.com</a>
               <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" className="whatsapp-link">

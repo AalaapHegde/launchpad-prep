@@ -68,20 +68,9 @@ function Home() {
                 Start Your Journey
               </Button>
             </div>
-            <div className="hero-universities">
-              <span>Our mentors come from:</span>
-              <div className="university-logos">
-                <img src="/stanford-logo.png" alt="Stanford" className="university-logo" />
-                <img src="/stanford-logo.png" alt="Harvard" className="university-logo" />
-                <img src="/stanford-logo.png" alt="MIT" className="university-logo" />
-                <img src="/stanford-logo.png" alt="Yale" className="university-logo" />
-                <img src="/stanford-logo.png" alt="Princeton" className="university-logo" />
-                <img src="/stanford-logo.png" alt="Columbia" className="university-logo" />
-              </div>
-            </div>
           </div>
           <div className="hero-image">
-            <ImagePlaceholder text="Students collaborating with mentor" aspectRatio="4/3" />
+            <img src="/hero-image.png" alt="Students collaborating with mentor" className="hero-img" />
           </div>
         </div>
       </section>
