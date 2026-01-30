@@ -1,26 +1,30 @@
 .testimonial-card {
   background: var(--white);
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 2rem;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   position: relative;
-  transition: var(--transition);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 .testimonial-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
 .quote-mark {
   font-family: var(--font-heading);
-  font-size: 4rem;
-  color: var(--gold);
+  font-size: 5rem;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   line-height: 1;
   position: absolute;
-  top: 1rem;
+  top: 0.5rem;
   left: 1.5rem;
-  opacity: 0.3;
+  opacity: 0.4;
 }
 
 .quote {
@@ -40,15 +44,15 @@
 }
 
 .author-avatar {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
   color: var(--white);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 1.125rem;
 }
 
@@ -68,7 +72,10 @@
 }
 
 .author-university {
-  font-size: 0.75rem;
-  color: var(--gold);
-  font-weight: 500;
+  font-size: 0.8rem;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
 }

@@ -1,14 +1,26 @@
 /* CSS Variables */
 :root {
-  --navy: #1e3a5f;
-  --navy-dark: #152a45;
-  --gold: #c9a227;
-  --gold-dark: #a8871f;
+  --navy: #1a365d;
+  --navy-dark: #0f2442;
+  --gold: #f59e0b;
+  --gold-dark: #d97706;
+  --gold-light: #fbbf24;
+  --coral: #f97316;
+  --coral-light: #fb923c;
+  --blue-accent: #3b82f6;
+  --blue-light: #60a5fa;
+  --teal: #14b8a6;
+  --purple: #8b5cf6;
   --cream: #ffffff;
   --white: #ffffff;
   --gray: #6b7280;
   --gray-light: #f3f4f6;
   --gray-dark: #374151;
+
+  --gradient-primary: linear-gradient(135deg, var(--navy) 0%, #2d4a7c 100%);
+  --gradient-accent: linear-gradient(135deg, var(--gold) 0%, var(--coral) 100%);
+  --gradient-hero: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #fef3c7 100%);
+  --gradient-card: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
 
   --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-sans: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -16,6 +28,8 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-colored: 0 10px 40px -10px rgba(249, 158, 11, 0.3);
 
   --transition: all 0.3s ease;
   --max-width: 1200px;

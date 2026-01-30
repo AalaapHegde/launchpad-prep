@@ -1,7 +1,20 @@
 .footer {
-  background-color: var(--navy);
+  background: var(--gradient-primary);
   color: var(--white);
   padding: 4rem 0 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(249, 158, 11, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
 }
 
 .footer-content {
@@ -9,6 +22,8 @@
   grid-template-columns: 1fr 2fr;
   gap: 4rem;
   margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
 }
 
 .footer-brand {
@@ -43,8 +58,11 @@
   font-size: 0.875rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--gold);
+  letter-spacing: 0.1em;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--coral) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 1rem;
 }
 
@@ -53,11 +71,12 @@
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.9rem;
   margin-bottom: 0.75rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .footer-column a:hover {
   color: var(--gold);
+  transform: translateX(4px);
 }
 
 .whatsapp-link {
@@ -78,6 +97,8 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .footer-bottom p {
@@ -95,8 +116,11 @@
 }
 
 .universities {
-  color: var(--gold);
-  font-weight: 500;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--coral) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
 }
 
 @media (max-width: 1024px) {
