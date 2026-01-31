@@ -54,29 +54,39 @@ function Home() {
   return (
     <div className="home">
       {/* Hero Section */}
-      <section className="hero">
-        <div className="container hero-container">
-          <div className="hero-content">
-            <h1 className="hero-title">
-              Launch Your Future with <span className="text-gold">Ivy+ Mentorship</span>
+      <section className="hero hero-centered">
+        <div className="container">
+          <div className="hero-content-centered">
+            <p className="hero-tagline">Ivy+ Mentorship for High Schoolers</p>
+            <h1 className="hero-title-large">
+              We turn your child's goals into <span className="text-gold">standout achievements</span>
             </h1>
-            <p className="hero-subtitle">
+            <p className="hero-subtitle-large">
               Launchpad Prep matches you with accomplished Ivy+ admits who share your major, interests, and goals. Work with them for college counseling or building a research project.
             </p>
-            <div className="hero-cta">
+            <div className="hero-cta-centered">
               <Button to="/apply" variant="primary" size="large">
                 Start Your Journey
               </Button>
+              <a href="#programs" className="btn btn-secondary btn-large">
+                Learn More
+              </a>
             </div>
-          </div>
-          <div className="hero-image">
-            <img src="/hero-image.png" alt="Students collaborating with mentor" className="hero-img" />
           </div>
         </div>
       </section>
 
+      {/* Mission Banner */}
+      <section className="mission-banner">
+        <div className="container">
+          <p>
+            We want to provide you with the <span className="highlight">clearest possible pathway</span> to achieving your dreams, so we work hard to match you with a mentor who has achieved them. Work with a mentor who was accepted into <span className="highlight">your dream program</span> at <span className="highlight">your dream school</span> and build a profile that is <span className="gold">undeniable</span>.
+          </p>
+        </div>
+      </section>
+
       {/* Program Overview */}
-      <section className="section programs-overview">
+      <section className="section programs-overview" id="programs">
         <div className="container">
           <h2 className="section-title fade-in">Two Paths to Success</h2>
           <p className="section-subtitle fade-in">
@@ -89,8 +99,8 @@ function Home() {
           <div className="programs-grid fade-in">
             {/* College Counseling */}
             <div className={`program-card ${activeTab === 'counseling' ? 'active' : ''}`} id="counseling">
-              <div className="program-badge">6 Months</div>
-              <h3>College Counseling</h3>
+              <div className="program-price-tag">$3,000</div>
+              <h3>College Counseling <span className="program-duration">(6 months)</span></h3>
               <p className="program-description">
                 Comprehensive guidance to help you craft a standout application with
                 passion projects and strategic summer planning.
@@ -118,8 +128,8 @@ function Home() {
 
             {/* Research Program */}
             <div className={`program-card ${activeTab === 'research' ? 'active' : ''}`} id="research">
-              <div className="program-badge">3 Months</div>
-              <h3>Research Program</h3>
+              <div className="program-price-tag">$3,000</div>
+              <h3>Research Program <span className="program-duration">(3 months)</span></h3>
               <p className="program-description">
                 Work 1-on-1 with a mentor from a top university to conduct original research
                 and publish a paper in your field of interest.
@@ -159,102 +169,56 @@ function Home() {
           <div className="steps-grid fade-in">
             <div className="step">
               <div className="step-number">1</div>
-              <h3>Tell Us About Yourself</h3>
-              <p>Fill out a quick application so we can learn about your interests, goals, and what excites you most.</p>
+              <h3>Submit Your Application</h3>
+              <p>Tell us about your interests, goals, and aspirations. It only takes a few minutes to get started.</p>
             </div>
             <div className="step">
               <div className="step-number">2</div>
-              <h3>Meet Your Mentor</h3>
-              <p>We'll match you with a mentor who gets you—someone who shares your interests and can guide your journey.</p>
+              <h3>Free Strategy Session</h3>
+              <p>Receive a complimentary 20-minute strategy session with your best-fit mentor—no commitment required.</p>
             </div>
             <div className="step">
               <div className="step-number">3</div>
-              <h3>Start Building</h3>
-              <p>Dive into your project or research with your mentor by your side, meeting weekly over Zoom.</p>
+              <h3>View Your Blueprint</h3>
+              <p>Get a personalized admissions blueprint outlining your path to success and recommended next steps.</p>
             </div>
             <div className="step">
               <div className="step-number">4</div>
-              <h3>Show Off Your Work</h3>
-              <p>Finish with something real to be proud of—a published paper, a passion project, or a stronger application.</p>
+              <h3>Book Your Mentor</h3>
+              <p>Ready to go? Lock in your mentor and begin your journey toward standout applications and real accomplishments.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* All Programs Include */}
-      <section className="section whats-included">
+      {/* Project Archetypes */}
+      <section className="section project-archetypes">
         <div className="container">
-          <h2 className="section-title fade-in">All Programs Include</h2>
-
-          <div className="included-grid fade-in">
-            <div className="included-item">
-              <div className="included-icon">📹</div>
-              <h4>Hourly 1:1 Zoom Sessions</h4>
-              <p>Regular video calls with your dedicated mentor to guide you through every step of your journey.</p>
-            </div>
-            <div className="included-item">
-              <div className="included-icon">🎓</div>
-              <h4>Top University Mentor</h4>
-              <p>Work with a mentor from Stanford, Harvard, MIT, Yale, Princeton, Columbia, UPenn, or Duke.</p>
-            </div>
-            <div className="included-item">
-              <div className="included-icon">🤖</div>
-              <h4>AI Training</h4>
-              <p>Learn how to use AI tools to maximize your workflow and get more done in less time.</p>
-            </div>
-            <div className="included-item">
-              <div className="included-icon">💬</div>
-              <h4>48-Hour Async Responses</h4>
-              <p>Get answers to your questions via messaging with guaranteed 48-hour response time.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="section pricing">
-        <div className="container">
-          <h2 className="section-title fade-in">Investment in Your Future</h2>
+          <h2 className="section-title fade-in">Project Archetypes</h2>
           <p className="section-subtitle fade-in">
-            Transparent pricing with no hidden fees. Choose the program that fits your goals.
+            Discover the types of impactful projects you can build with your mentor.
           </p>
 
-          <div className="pricing-grid fade-in">
-            <div className="pricing-card featured">
-              <div className="featured-badge">Most Popular</div>
-              <h3>College Counseling</h3>
-              <p className="pricing-duration">6 months</p>
-              <div className="pricing-amount">
-                <span className="currency">$</span>
-                <span className="price">3,000</span>
-              </div>
-              <ul className="pricing-features">
-                <li>15 hours of mentoring</li>
-                <li>1-2 passion projects</li>
-                <li>Summer program guidance</li>
-                <li>48-hour async support</li>
-              </ul>
-              <Button to="/apply" variant="primary" size="large">
-                Apply Now
-              </Button>
+          <div className="archetypes-grid fade-in">
+            <div className="archetype-item">
+              <div className="archetype-icon">🔬</div>
+              <h4>Research Projects</h4>
+              <p>Conduct original research and publish papers in academic journals or present at conferences.</p>
             </div>
-
-            <div className="pricing-card">
-              <h3>Research Program</h3>
-              <p className="pricing-duration">3 months</p>
-              <div className="pricing-amount">
-                <span className="currency">$</span>
-                <span className="price">3,000</span>
-              </div>
-              <ul className="pricing-features">
-                <li>12 weekly 1-on-1 sessions</li>
-                <li>Publishable research paper</li>
-                <li>Top university mentor</li>
-                <li>AI tools training</li>
-              </ul>
-              <Button to="/apply" variant="primary" size="large">
-                Apply Now
-              </Button>
+            <div className="archetype-item">
+              <div className="archetype-icon">📱</div>
+              <h4>Apps & Software</h4>
+              <p>Build and launch your own mobile app or web application that solves a real-world problem.</p>
+            </div>
+            <div className="archetype-item">
+              <div className="archetype-icon">🎬</div>
+              <h4>Content Creation</h4>
+              <p>Create educational content, start a podcast, YouTube channel, or build a following around your expertise.</p>
+            </div>
+            <div className="archetype-item">
+              <div className="archetype-icon">🤝</div>
+              <h4>Start a Nonprofit</h4>
+              <p>Launch a nonprofit organization to make a meaningful impact in your community or beyond.</p>
             </div>
           </div>
         </div>

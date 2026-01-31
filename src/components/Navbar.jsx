@@ -44,6 +44,14 @@ function Navbar() {
           <Link to="/why-us" className={`nav-link ${isActive('/why-us') ? 'active' : ''}`}>
             Why Us
           </Link>
+          <a
+            href="https://luma.com/calendar/cal-LvLbx6gS0ChhPQz?utm_source=website"
+            className="nav-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Events
+          </a>
           <Button to="/apply" variant="primary" size="small">
             Apply Now
           </Button>
