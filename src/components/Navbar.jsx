@@ -45,7 +45,7 @@ function Navbar() {
             Why Us
           </Link>
           <a
-            href="https://luma.com/calendar/cal-LvLbx6gS0ChhPQz?utm_source=website"
+            href="https://luma.com/launchpadprep?period=past"
             className="nav-link"
             target="_blank"
             rel="noopener noreferrer"
