@@ -1,18 +1,34 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
+  ArrowUp,
+  Award,
+  BookOpen,
+  Briefcase,
+  Building2,
+  Calendar,
   Check,
+  Compass,
   FlaskConical,
   GraduationCap,
-  Briefcase,
+  Hammer,
+  Menu,
+  MessageSquare,
+  PenLine,
+  Search,
   Sparkles,
   UserRoundCheck,
+  X,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+
+/* ------------------------------------------------------------------ */
+/*  Animation variants                                                 */
+/* ------------------------------------------------------------------ */
 
 const container = {
   hidden: { opacity: 0 },
@@ -27,12 +43,17 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.55 } },
 };
 
+/* ------------------------------------------------------------------ */
+/*  Reusable pieces                                                    */
+/* ------------------------------------------------------------------ */
+
 function TrackIcon({ name }: { name: "mentorship" | "research" }) {
   const cls = "h-5 w-5 text-[hsl(var(--primary))]";
   if (name === "mentorship") return <UserRoundCheck className={cls} aria-hidden="true" />;
   return <FlaskConical className={cls} aria-hidden="true" />;
 }
 
+/* #6 — pause-on-hover marquee */
 function LogoMarquee({ logos, speedSeconds = 26 }: { logos: { name: string; src: string }[]; speedSeconds?: number }) {
   return (
     <div className="w-full">
@@ -40,7 +61,8 @@ function LogoMarquee({ logos, speedSeconds = 26 }: { logos: { name: string; src:
         <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-[linear-gradient(to_right,hsl(var(--background)),transparent)]" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-[linear-gradient(to_left,hsl(var(--background)),transparent)]" />
 
-        <div className="grid items-center gap-10 md:grid-cols-[1fr_1.4fr]">
+        {/* #7 — single column on mobile so logos have room */}
+        <div className="grid items-center gap-6 md:gap-10 md:grid-cols-[1fr_1.4fr]">
           <div>
             <div className="text-xs font-medium text-muted-foreground">
               Our students are accepted into
@@ -51,9 +73,9 @@ function LogoMarquee({ logos, speedSeconds = 26 }: { logos: { name: string; src:
           </div>
 
           <div className="grid gap-2">
-            <div className="relative overflow-hidden">
+            <div className="group relative overflow-hidden">
               <div
-                className="flex w-max items-center gap-3"
+                className="flex w-max items-center gap-3 group-hover:[animation-play-state:paused]"
                 style={{ animation: `marquee ${speedSeconds}s linear infinite` } as React.CSSProperties}
               >
                 {[...logos, ...logos].map((l, idx) => (
@@ -82,40 +104,41 @@ function LogoMarquee({ logos, speedSeconds = 26 }: { logos: { name: string; src:
   );
 }
 
+/* #12 — icons instead of abbreviations for mentorship "What we do" */
 function WhatWeDoGrid() {
   const items = [
     {
-      abbr: "MM",
+      icon: <UserRoundCheck className="h-5 w-5 text-[hsl(var(--primary))]" />,
       title: "Elite mentor match",
       detail:
         "Matched to an admitted mentor aligned to interests and goals—first-hand guidance on positioning, project choice, and what top schools recognize.",
     },
     {
-      abbr: "TD",
+      icon: <Compass className="h-5 w-5 text-[hsl(var(--primary))]" />,
       title: "Throughline design",
       detail:
         "A coherent story unique to the student—academics and activities aligned into a multi-year narrative with depth and growth.",
     },
     {
-      abbr: "PB",
+      icon: <Hammer className="h-5 w-5 text-[hsl(var(--primary))]" />,
       title: "Project building",
       detail:
         "We help students build signature projects end-to-end—scope, milestones, execution, and outcomes that show initiative and original thinking.",
     },
     {
-      abbr: "IS",
+      icon: <Building2 className="h-5 w-5 text-[hsl(var(--primary))]" />,
       title: "Internship support",
       detail:
         "Identify realistic, profile-aligned roles, then guide outreach, applications, and preparation—prioritizing ownership and real work.",
     },
     {
-      abbr: "SB",
+      icon: <Calendar className="h-5 w-5 text-[hsl(var(--primary))]" />,
       title: "Summer building",
       detail:
         "Structure summers around projects, internships, and programs that strengthen the profile—never just filling space.",
     },
     {
-      abbr: "WA",
+      icon: <MessageSquare className="h-5 w-5 text-[hsl(var(--primary))]" />,
       title: "Weekly accountability",
       detail:
         "Ongoing feedback to keep work sharp and authentic—no ghostwriting, ever.",
@@ -125,11 +148,7 @@ function WhatWeDoGrid() {
   return (
     <div className="mt-6">
       <div className="flex items-end justify-between gap-4">
-        <div>
-          <div className="text-xs font-medium text-muted-foreground">
-            What we do
-          </div>
-        </div>
+        <div className="text-xs font-medium text-muted-foreground">What we do</div>
         <div className="hidden text-xs text-muted-foreground md:block">
           Ethical, student-led work only
         </div>
@@ -142,19 +161,12 @@ function WhatWeDoGrid() {
             className="rounded-2xl border bg-background/55 p-5 shadow-[0_10px_28px_hsl(var(--foreground)/0.05)]"
           >
             <div className="flex items-start gap-3">
-              <div
-                className="grid h-10 w-10 flex-none place-items-center rounded-xl border bg-card/60 text-[11px] font-semibold tracking-wide text-foreground/80"
-                aria-hidden="true"
-              >
-                {x.abbr}
+              <div className="grid h-10 w-10 flex-none place-items-center rounded-xl border bg-card/60" aria-hidden="true">
+                {x.icon}
               </div>
               <div className="min-w-0">
-                <div className="text-sm font-medium leading-snug">
-                  {x.title}
-                </div>
-                <div className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                  {x.detail}
-                </div>
+                <div className="text-sm font-medium leading-snug">{x.title}</div>
+                <div className="mt-2 text-xs leading-relaxed text-muted-foreground">{x.detail}</div>
               </div>
             </div>
           </div>
@@ -164,8 +176,31 @@ function WhatWeDoGrid() {
   );
 }
 
+/* #12 — icons for research "What we do" */
+const researchWhatWeDo = [
+  { icon: <UserRoundCheck className="h-5 w-5 text-[hsl(var(--primary))]" />, title: "Research mentor match", detail: "Matched with a top researcher in the student's field of interest—direct guidance on scope, methods, and how real scholars evaluate strong work." },
+  { icon: <Search className="h-5 w-5 text-[hsl(var(--primary))]" />, title: "Question & scope design", detail: "We refine vague interests into precise, researchable questions—realistic scope, real ambition, and real originality." },
+  { icon: <FlaskConical className="h-5 w-5 text-[hsl(var(--primary))]" />, title: "Methodology & execution", detail: "Learn and apply appropriate methods (theoretical, computational, experimental, qualitative) with rigor—assumptions, limitations, and clarity included." },
+  { icon: <BookOpen className="h-5 w-5 text-[hsl(var(--primary))]" />, title: "Literature navigation", detail: "Read papers effectively, identify gaps, situate work in scholarship, and avoid shallow summaries or overclaims." },
+  { icon: <PenLine className="h-5 w-5 text-[hsl(var(--primary))]" />, title: "Writing & revision", detail: "Structured drafting support for papers, reports, or preprints—argument, structure, and precision over fluff." },
+  { icon: <Award className="h-5 w-5 text-[hsl(var(--primary))]" />, title: "Presentation & next steps", detail: "Prepare for fairs, journals, conferences, or independent submission—and understand what outcomes are realistic at the high school level." },
+];
+
+/* ------------------------------------------------------------------ */
+/*  Page                                                               */
+/* ------------------------------------------------------------------ */
+
 export default function Home() {
   const [selectedTrack, setSelectedTrack] = React.useState<"mentorship" | "research">("mentorship");
+  const [scrolled, setScrolled] = React.useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
+  /* #2 — detect scroll for sticky header */
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const acceptedLogos = [
     { name: "Harvard", src: "/logos/harvard.webp" },
@@ -176,6 +211,13 @@ export default function Home() {
     { name: "Cornell", src: "/logos/cornell.png" },
   ];
 
+  const navLinks = [
+    { label: "Tracks", href: "#tracks" },
+    { label: "Process", href: "#process" },
+    { label: "Events", href: "https://luma.com/launchpadprep?period=past", external: true },
+    { label: "Apply", href: "#consultation" },
+  ];
+
   const tracks = [
     {
       key: "mentorship" as const,
@@ -184,8 +226,7 @@ export default function Home() {
       price: "$3,000",
       meetingCount: "15 hours of 1-on-1 mentoring",
       tagline: "We help students intentionally craft an exceptional college profile — early, coherent, and backed by real work.",
-      desc:
-        "This program provides long-range guidance for students who want to shape a standout profile well before senior year. Each student is matched with an elite mentor who shares their academic interests and long-term goals — someone who has already been admitted to top colleges along the same path. Together, we define a clear profile throughline, then build credible proof through student-led projects, leadership, and meaningful experience. Everything is ethical, authentic, and grounded in real work.",
+      desc: "This program provides long-range guidance for students who want to shape a standout profile well before senior year. Each student is matched with an elite mentor who shares their academic interests and long-term goals — someone who has already been admitted to top colleges along the same path. Together, we define a clear profile throughline, then build credible proof through student-led projects, leadership, and meaningful experience. Everything is ethical, authentic, and grounded in real work.",
       bullets: [
         "Elite mentor match (by passion and goals)",
         "Profile positioning + throughline design",
@@ -237,8 +278,11 @@ export default function Home() {
       price: "$3,000",
       meetingCount: "12 weekly 1-on-1 mentoring sessions",
       tagline: "We help students conduct real, original research — early, rigorous, and guided by how scholarship actually works.",
-      desc:
-        "This program is designed for students who want to move beyond surface-level \"research projects\" and learn how knowledge is genuinely produced. Each student is paired with a domain-aligned mentor and guided through the full research lifecycle: from question formation to methodology, execution, and presentation. The focus is depth, intellectual honesty, and work that holds up under real scrutiny — not résumé padding.\n\nEverything is student-driven, ethical, and grounded in authentic inquiry.",
+      /* #10 — split into two paragraphs */
+      descParts: [
+        "This program is designed for students who want to move beyond surface-level \"research projects\" and learn how knowledge is genuinely produced. Each student is paired with a domain-aligned mentor and guided through the full research lifecycle: from question formation to methodology, execution, and presentation. The focus is depth, intellectual honesty, and work that holds up under real scrutiny — not résumé padding.",
+        "Everything is student-driven, ethical, and grounded in authentic inquiry.",
+      ],
       bullets: [
         "Research mentor match",
         "Question & scope design",
@@ -261,6 +305,8 @@ export default function Home() {
             "Oral presentation at a pre-college economics research conference",
             "Paper published in a student economics research journal",
           ],
+          /* #14 — add outcome to research examples */
+          outcome: "Published in a student economics research journal",
           proof: ["Panel dataset", "DiD design", "Placebo tests"],
         },
         {
@@ -276,6 +322,7 @@ export default function Home() {
             "Paper accepted to a student machine learning research conference",
             "Preprint published on an open-access research archive",
           ],
+          outcome: "Regeneron ISEF qualifier in Computer Science",
           proof: ["Synthetic datasets", "Fairness metrics", "Model card"],
         },
         {
@@ -291,11 +338,17 @@ export default function Home() {
             "Oral presentation at a psychology research symposium",
             "Manuscript under review at a student psychology journal",
           ],
+          outcome: "Top award at a state science and engineering fair",
           proof: ["Survey instrument", "Longitudinal data", "Attenuation bias"],
         },
       ],
     },
   ];
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setMobileMenuOpen(false);
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -303,14 +356,17 @@ export default function Home() {
         @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
       `}</style>
 
-      <div className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 opacity-90">
-          <div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[hsl(var(--accent))]/12 blur-3xl" />
-          <div className="absolute -right-40 -top-32 h-[520px] w-[520px] rounded-full bg-[hsl(var(--primary))]/10 blur-3xl" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,hsl(var(--foreground)/0.05),transparent_45%),radial-gradient(circle_at_80%_10%,hsl(var(--foreground)/0.04),transparent_38%)]" />
-        </div>
-
-        <header className="relative mx-auto flex w-full max-w-6xl items-center justify-between px-5 pb-2 pt-6 md:px-8">
+      {/* ============================================================ */}
+      {/* #1 #2 #3 — Sticky header with nav links + mobile menu        */}
+      {/* ============================================================ */}
+      <header
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+          scrolled
+            ? "bg-background/80 backdrop-blur-lg border-b shadow-sm"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-3 md:px-8">
           <a href="/" className="flex items-center gap-3">
             <img src="/logo.png" alt="Launchpad Prep" className="h-10 w-10 rounded-2xl object-contain" />
             <div className="font-serif text-lg leading-none">
@@ -318,19 +374,103 @@ export default function Home() {
             </div>
           </a>
 
-          <div className="flex items-center gap-2">
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-6 md:flex">
+            {navLinks.map((link) =>
+              link.external ? (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {link.label}
+                </a>
+              )
+            )}
             <Button
               className="rounded-2xl"
-              onClick={() => {
-                const el = document.getElementById("consultation");
-                el?.scrollIntoView({ behavior: "smooth", block: "start" });
-              }}
+              onClick={() => scrollTo("consultation")}
             >
               Book a free strategy session
               <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
             </Button>
-          </div>
-        </header>
+          </nav>
+
+          {/* Mobile hamburger */}
+          <button
+            type="button"
+            className="grid h-10 w-10 place-items-center rounded-xl border md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+
+        {/* Mobile dropdown */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="overflow-hidden border-b bg-background/95 backdrop-blur-lg md:hidden"
+            >
+              <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-5 pb-4">
+                {navLinks.map((link) =>
+                  link.external ? (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    >
+                      {link.label}
+                    </a>
+                  )
+                )}
+                <Button
+                  className="mt-2 rounded-2xl"
+                  onClick={() => scrollTo("consultation")}
+                >
+                  Get started
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                </Button>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* ============================================================ */}
+      {/*  Hero                                                         */}
+      {/* ============================================================ */}
+      <div className="relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 opacity-90">
+          <div className="absolute -left-40 -top-40 h-[520px] w-[520px] rounded-full bg-[hsl(var(--accent))]/12 blur-3xl" />
+          <div className="absolute -right-40 -top-32 h-[520px] w-[520px] rounded-full bg-[hsl(var(--primary))]/10 blur-3xl" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,hsl(var(--foreground)/0.05),transparent_45%),radial-gradient(circle_at_80%_10%,hsl(var(--foreground)/0.04),transparent_38%)]" />
+        </div>
 
         <main className="relative mx-auto w-full max-w-6xl px-5 pb-16 pt-6 md:px-8 md:pb-24 md:pt-10">
           <motion.div variants={container} initial="hidden" animate="show">
@@ -346,6 +486,7 @@ export default function Home() {
 
               <div className="max-w-2xl text-base text-muted-foreground md:text-lg">
                 <p className="mb-4 text-foreground/80 font-medium">Work with a mentor who fits your passions, interests, and goals to:</p>
+                {/* #4 — checkmarks instead of arrow icons */}
                 <div className="flex flex-col gap-2">
                   {[
                     "Become a published researcher",
@@ -354,7 +495,7 @@ export default function Home() {
                     "Stand out in college applications",
                   ].map((text, i) => (
                     <div key={i} className="flex items-center gap-2">
-                      <ArrowRight className="h-4 w-4 text-[hsl(var(--accent))]" />
+                      <Check className="h-4 w-4 text-[hsl(var(--primary))]" />
                       <span>{text}</span>
                     </div>
                   ))}
@@ -365,10 +506,7 @@ export default function Home() {
                 <Button
                   className="rounded-2xl"
                   size="lg"
-                  onClick={() => {
-                    const el = document.getElementById("consultation");
-                    el?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
+                  onClick={() => scrollTo("consultation")}
                 >
                   Get matched
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
@@ -377,10 +515,7 @@ export default function Home() {
                   variant="secondary"
                   size="lg"
                   className="rounded-2xl"
-                  onClick={() => {
-                    const el = document.getElementById("tracks");
-                    el?.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
+                  onClick={() => scrollTo("tracks")}
                 >
                   Explore tracks
                 </Button>
@@ -390,6 +525,10 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
+          {/* ======================================================== */}
+          {/* #8 — Philosophy section with CTA                          */}
+          {/* #25 — section divider via top margin + border card        */}
+          {/* ======================================================== */}
           <section className="mt-16 md:mt-24">
             <div className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl border bg-gradient-to-b from-card/60 to-background p-8 text-center shadow-soft md:p-12">
               <div className="pointer-events-none absolute inset-0 opacity-30">
@@ -409,16 +548,31 @@ export default function Home() {
                 <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">
                   We want to provide you with the clearest possible pathway to achieving your dreams, so we work hard to match you with a mentor who has achieved them. Work with a mentor who was accepted into your dream program at your dream school and build a profile that is undeniable.
                 </p>
+
+                <Button
+                  className="mt-6 rounded-2xl"
+                  size="lg"
+                  onClick={() => scrollTo("consultation")}
+                >
+                  Get matched
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                </Button>
               </div>
             </div>
           </section>
 
+          {/* ======================================================== */}
+          {/* #25 — subtle divider between sections                     */}
+          {/* ======================================================== */}
+          <Separator className="mx-auto mt-16 max-w-xs opacity-30 md:mt-24" />
+
+          {/* ======================================================== */}
+          {/*  Tracks section                                           */}
+          {/* ======================================================== */}
           <section id="tracks" className="mt-16 md:mt-24">
             <div className="flex flex-col items-center justify-between gap-6 text-center">
               <div>
-                <div className="text-xs font-medium text-muted-foreground">
-                  Tracks
-                </div>
+                <div className="text-xs font-medium text-muted-foreground">Tracks</div>
                 <h2 className="mt-2 font-serif text-3xl tracking-tight md:text-4xl">
                   Choose your Launchpad track.
                 </h2>
@@ -452,14 +606,10 @@ export default function Home() {
                       >
                         <div className="flex items-center justify-between gap-3">
                           <div className="min-w-0">
-                            <div
-                              className={`truncate text-sm font-medium ${isActive ? "text-foreground" : "text-foreground/80"}`}
-                            >
+                            <div className={`truncate text-sm font-medium ${isActive ? "text-foreground" : "text-foreground/80"}`}>
                               {opt.label}
                             </div>
-                            <div className="mt-0.5 text-xs text-muted-foreground">
-                              {opt.meta}
-                            </div>
+                            <div className="mt-0.5 text-xs text-muted-foreground">{opt.meta}</div>
                           </div>
                           <div
                             className={`grid h-9 w-9 place-items-center rounded-xl border transition-colors ${
@@ -481,21 +631,29 @@ export default function Home() {
               </div>
             </div>
 
+            {/* #9 — animate track switching */}
             <div className="mt-8">
-              {tracks
-                .filter((t) => t.key === selectedTrack)
-                .map((t) => (
-                  <Card key={t.key} className="glass relative overflow-hidden rounded-3xl p-7 shadow-soft md:p-8">
-                    <div className="pointer-events-none absolute inset-0 opacity-80">
-                      <div className="absolute -left-28 -top-28 h-72 w-72 rounded-full bg-[hsl(var(--accent))]/10 blur-3xl" />
-                      <div className="absolute -bottom-28 -right-28 h-72 w-72 rounded-full bg-[hsl(var(--primary))]/12 blur-3xl" />
-                    </div>
+              <AnimatePresence mode="wait">
+                {tracks
+                  .filter((t) => t.key === selectedTrack)
+                  .map((t) => (
+                    <motion.div
+                      key={t.key}
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -12 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Card className="glass relative overflow-hidden rounded-3xl p-7 shadow-soft md:p-8">
+                        <div className="pointer-events-none absolute inset-0 opacity-80">
+                          <div className="absolute -left-28 -top-28 h-72 w-72 rounded-full bg-[hsl(var(--accent))]/10 blur-3xl" />
+                          <div className="absolute -bottom-28 -right-28 h-72 w-72 rounded-full bg-[hsl(var(--primary))]/12 blur-3xl" />
+                        </div>
 
-                    <div className="relative grid gap-7">
-                      <div>
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="flex-1">
-                            <div className="flex items-center justify-between">
+                        <div className="relative grid gap-7">
+                          <div>
+                            {/* #11 — price badge wraps on small screens */}
+                            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                               <div className="inline-flex items-center gap-2">
                                 <div className="rounded-2xl border bg-background/60 p-2.5">
                                   <TrackIcon name={t.key} />
@@ -504,258 +662,193 @@ export default function Home() {
                                   {t.name} <span className="text-muted-foreground font-normal text-base">({t.duration})</span>
                                 </div>
                               </div>
-                              <div className="shrink-0 rounded-full bg-[hsl(var(--accent))] px-4 py-1.5 text-sm font-bold text-white shadow-sm">
+                              <div className="shrink-0 self-start rounded-full bg-[hsl(var(--accent))] px-4 py-1.5 text-sm font-bold text-white shadow-sm">
                                 {t.price}
                               </div>
                             </div>
-                            <div className="mt-3 text-sm text-muted-foreground">
-                              {t.tagline}
+
+                            <div className="mt-3 text-sm text-muted-foreground">{t.tagline}</div>
+
+                            {/* #10 — split description into paragraphs */}
+                            <div className="mt-4 space-y-3 text-sm text-muted-foreground">
+                              {"descParts" in t ? (
+                                (t as any).descParts.map((p: string, pi: number) => <p key={pi}>{p}</p>)
+                              ) : (
+                                <p>{"desc" in t ? (t as any).desc : ""}</p>
+                              )}
                             </div>
-                          </div>
-                        </div>
 
-                        <div className="mt-4 text-sm text-muted-foreground">
-                          {t.desc}
-                        </div>
+                            {t.meetingCount && (
+                              <div className="mt-5 flex items-center gap-2 text-sm font-medium text-[hsl(var(--accent))]">
+                                <Check className="h-4 w-4" />
+                                {t.meetingCount}
+                              </div>
+                            )}
 
-                        {t.meetingCount && (
-                          <div className="mt-5 flex items-center gap-2 text-sm font-medium text-[hsl(var(--accent))]">
-                            <Check className="h-4 w-4" />
-                            {t.meetingCount}
-                          </div>
-                        )}
-
-                        {t.key === "mentorship" ? (
-                          <WhatWeDoGrid />
-                        ) : t.key === "research" ? (
-                          <div className="mt-6">
-                            <div className="flex items-end justify-between gap-4">
-                              <div>
-                                <div className="text-xs font-medium text-muted-foreground">
-                                  What we do
+                            {t.key === "mentorship" ? (
+                              <WhatWeDoGrid />
+                            ) : (
+                              <div className="mt-6">
+                                <div className="flex items-end justify-between gap-4">
+                                  <div className="text-xs font-medium text-muted-foreground">What we do</div>
+                                  <div className="hidden text-xs text-muted-foreground md:block">
+                                    Ethical, original research only
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="hidden text-xs text-muted-foreground md:block">
-                                Ethical, original research only
-                              </div>
-                            </div>
 
-                            <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                              {[
-                                {
-                                  abbr: "RM",
-                                  title: "Research mentor match",
-                                  detail:
-                                    "Matched with a top researcher in the student's field of interest—direct guidance on scope, methods, and how real scholars evaluate strong work.",
-                                },
-                                {
-                                  abbr: "QS",
-                                  title: "Question & scope design",
-                                  detail:
-                                    "We refine vague interests into precise, researchable questions—realistic scope, real ambition, and real originality.",
-                                },
-                                {
-                                  abbr: "ME",
-                                  title: "Methodology & execution",
-                                  detail:
-                                    "Learn and apply appropriate methods (theoretical, computational, experimental, qualitative) with rigor—assumptions, limitations, and clarity included.",
-                                },
-                                {
-                                  abbr: "LN",
-                                  title: "Literature navigation",
-                                  detail:
-                                    "Read papers effectively, identify gaps, situate work in scholarship, and avoid shallow summaries or overclaims.",
-                                },
-                                {
-                                  abbr: "WR",
-                                  title: "Writing & revision",
-                                  detail:
-                                    "Structured drafting support for papers, reports, or preprints—argument, structure, and precision over fluff.",
-                                },
-                                {
-                                  abbr: "PN",
-                                  title: "Presentation & next steps",
-                                  detail:
-                                    "Prepare for fairs, journals, conferences, or independent submission—and understand what outcomes are realistic at the high school level.",
-                                },
-                              ].map((x, wi) => (
-                                <div
-                                  key={wi}
-                                  className="rounded-2xl border bg-background/55 p-5 shadow-[0_10px_28px_hsl(var(--foreground)/0.05)]"
-                                >
-                                  <div className="flex items-start gap-3">
+                                <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                  {researchWhatWeDo.map((x, wi) => (
                                     <div
-                                      className="grid h-10 w-10 flex-none place-items-center rounded-xl border bg-card/60 text-[11px] font-semibold tracking-wide text-foreground/80"
-                                      aria-hidden="true"
+                                      key={wi}
+                                      className="rounded-2xl border bg-background/55 p-5 shadow-[0_10px_28px_hsl(var(--foreground)/0.05)]"
                                     >
-                                      {x.abbr}
-                                    </div>
-                                    <div className="min-w-0">
-                                      <div className="text-sm font-medium leading-snug">
-                                        {x.title}
+                                      <div className="flex items-start gap-3">
+                                        <div className="grid h-10 w-10 flex-none place-items-center rounded-xl border bg-card/60" aria-hidden="true">
+                                          {x.icon}
+                                        </div>
+                                        <div className="min-w-0">
+                                          <div className="text-sm font-medium leading-snug">{x.title}</div>
+                                          <div className="mt-2 text-xs leading-relaxed text-muted-foreground">{x.detail}</div>
+                                        </div>
                                       </div>
-                                      <div className="mt-2 text-xs leading-relaxed text-muted-foreground">
-                                        {x.detail}
-                                      </div>
                                     </div>
-                                  </div>
+                                  ))}
                                 </div>
-                              ))}
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="mt-6 grid gap-2 text-sm">
-                            {t.bullets.map((b, j) => (
-                              <div key={j} className="flex items-center gap-2">
-                                <span className="inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--primary))]" />
-                                <span className="text-foreground/90">
-                                  {b}
-                                </span>
                               </div>
-                            ))}
-                          </div>
-                        )}
+                            )}
 
-                        <div className="mt-7 flex flex-wrap gap-3">
-                          <Button
-                            size="lg"
-                            className="rounded-2xl"
-                            onClick={() => {
-                              const el = document.getElementById("consultation");
-                              el?.scrollIntoView({ behavior: "smooth", block: "start" });
-                            }}
-                          >
-                            Request a consultation
-                            <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
-                          </Button>
-                          <Button
-                            variant="secondary"
-                            size="lg"
-                            className="rounded-2xl"
-                            onClick={() => {
-                              const el = document.getElementById("process");
-                              el?.scrollIntoView({ behavior: "smooth", block: "start" });
-                            }}
-                          >
-                            See our process
-                          </Button>
-                        </div>
-                      </div>
-
-                      <div>
-                        <div className="rounded-3xl border bg-background/45 p-5">
-                          <div className="flex flex-col items-start justify-between gap-1 sm:flex-row sm:items-end sm:gap-4">
-                            <div>
-                              <div className="text-xs font-medium text-muted-foreground">
-                                Example outcomes
-                              </div>
-                              <div className="mt-1 text-sm text-foreground/80">
-                                What "proof" looks like in practice.
-                              </div>
+                            <div className="mt-7 flex flex-wrap gap-3">
+                              <Button size="lg" className="rounded-2xl" onClick={() => scrollTo("consultation")}>
+                                Request a consultation
+                                <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                              </Button>
+                              <Button variant="secondary" size="lg" className="rounded-2xl" onClick={() => scrollTo("process")}>
+                                See our process
+                              </Button>
                             </div>
                           </div>
 
-                          <div className="mt-4 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-                            {t.examples.map((ex, idx) => (
-                              <div
-                                key={idx}
-                                className="group flex flex-col overflow-hidden rounded-2xl border bg-card/60 p-5 shadow-[0_10px_28px_hsl(var(--foreground)/0.04)] transition hover:bg-card/70 hover:shadow-[0_12px_32px_hsl(var(--foreground)/0.06)]"
-                              >
-                                <div className="mb-4">
-                                  <div className="flex items-start justify-between gap-4">
-                                    <div>
-                                      <div className="text-lg font-semibold leading-tight text-foreground">
-                                        {ex.student.split(" · ")[0]}
-                                      </div>
-                                      <div className="text-sm font-medium text-muted-foreground">
-                                        {ex.student.split(" · ")[1]}
-                                      </div>
-                                    </div>
-                                    <div className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))]">
-                                      {t.key === "research" ? <FlaskConical className="h-5 w-5" /> : <UserRoundCheck className="h-5 w-5" />}
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <Separator className="mb-4 opacity-50" />
-
-                                <div className="flex flex-1 flex-col gap-5">
-                                  <div className="flex-1 space-y-2">
-                                    <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                                      <Sparkles className="h-3 w-3 text-[hsl(var(--accent))]" />
-                                      {t.key === "research" ? "What the research did" : "Built"}
-                                    </div>
-                                    <div className="rounded-xl bg-background/50 p-3 text-sm leading-relaxed text-foreground/90">
-                                      <ul className="space-y-2">
-                                        {ex.built.map((line, li) => (
-                                          <li key={li} className="flex gap-2.5">
-                                            <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-[hsl(var(--accent))]" />
-                                            <span>{line}</span>
-                                          </li>
-                                        ))}
-                                      </ul>
-                                    </div>
-                                  </div>
-
-                                  <div className="flex-1 space-y-2">
-                                    <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                                      <Briefcase className="h-3 w-3 text-[hsl(var(--accent))]" />
-                                      {t.key === "research" ? "External outcomes" : "Worked at"}
-                                    </div>
-                                    <div className="rounded-xl bg-background/50 p-3 text-sm leading-relaxed text-foreground/90">
-                                      <ul className="space-y-2">
-                                        {ex.workedAt.map((line, li) => (
-                                          <li key={li} className="flex gap-2.5">
-                                            <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-[hsl(var(--accent))]" />
-                                            <span>{line}</span>
-                                          </li>
-                                        ))}
-                                      </ul>
-                                    </div>
-                                  </div>
-
-                                  {"outcome" in ex && (ex as any).outcome && (
-                                    <div className="space-y-2">
-                                      <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
-                                        <GraduationCap className="h-3 w-3 text-[hsl(var(--accent))]" />
-                                        Outcome
-                                      </div>
-                                      <div className="rounded-xl border border-[hsl(var(--accent))]/20 bg-[hsl(var(--accent))]/5 p-3 text-sm font-medium text-foreground">
-                                        {(ex as any).outcome}
-                                      </div>
-                                    </div>
-                                  )}
-                                </div>
-
-                                <div className="mt-5">
-                                  <div className="flex flex-wrap gap-2">
-                                    {ex.proof.map((h, hi) => (
-                                      <div
-                                        key={hi}
-                                        className="inline-flex items-center rounded-md border bg-background px-2.5 py-1 text-[11px] font-medium text-muted-foreground shadow-sm transition hover:text-foreground"
-                                      >
-                                        {h}
-                                      </div>
-                                    ))}
-                                  </div>
+                          {/* Example outcomes */}
+                          <div>
+                            <div className="rounded-3xl border bg-background/45 p-5">
+                              <div className="flex flex-col items-start justify-between gap-1 sm:flex-row sm:items-end sm:gap-4">
+                                <div>
+                                  <div className="text-xs font-medium text-muted-foreground">Example outcomes</div>
+                                  <div className="mt-1 text-sm text-foreground/80">What "proof" looks like in practice.</div>
                                 </div>
                               </div>
-                            ))}
+
+                              <div className="mt-4 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                                {t.examples.map((ex, idx) => (
+                                  <div
+                                    key={idx}
+                                    className="group flex flex-col overflow-hidden rounded-2xl border bg-card/60 p-5 shadow-[0_10px_28px_hsl(var(--foreground)/0.04)] transition hover:bg-card/70 hover:shadow-[0_12px_32px_hsl(var(--foreground)/0.06)]"
+                                  >
+                                    <div className="mb-4">
+                                      <div className="flex items-start justify-between gap-4">
+                                        <div>
+                                          <div className="text-lg font-semibold leading-tight text-foreground">
+                                            {ex.student.split(" · ")[0]}
+                                          </div>
+                                          <div className="text-sm font-medium text-muted-foreground">
+                                            {ex.student.split(" · ")[1]}
+                                          </div>
+                                        </div>
+                                        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-[hsl(var(--accent))]/10 text-[hsl(var(--accent))]">
+                                          {t.key === "research" ? <FlaskConical className="h-5 w-5" /> : <UserRoundCheck className="h-5 w-5" />}
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <Separator className="mb-4 opacity-50" />
+
+                                    <div className="flex flex-1 flex-col gap-5">
+                                      <div className="flex-1 space-y-2">
+                                        <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                                          <Sparkles className="h-3 w-3 text-[hsl(var(--accent))]" />
+                                          {t.key === "research" ? "What the research did" : "Built"}
+                                        </div>
+                                        <div className="rounded-xl bg-background/50 p-3 text-sm leading-relaxed text-foreground/90">
+                                          <ul className="space-y-2">
+                                            {ex.built.map((line, li) => (
+                                              <li key={li} className="flex gap-2.5">
+                                                <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-[hsl(var(--accent))]" />
+                                                <span>{line}</span>
+                                              </li>
+                                            ))}
+                                          </ul>
+                                        </div>
+                                      </div>
+
+                                      <div className="flex-1 space-y-2">
+                                        <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                                          <Briefcase className="h-3 w-3 text-[hsl(var(--accent))]" />
+                                          {t.key === "research" ? "External outcomes" : "Worked at"}
+                                        </div>
+                                        <div className="rounded-xl bg-background/50 p-3 text-sm leading-relaxed text-foreground/90">
+                                          <ul className="space-y-2">
+                                            {ex.workedAt.map((line, li) => (
+                                              <li key={li} className="flex gap-2.5">
+                                                <span className="mt-1.5 h-1.5 w-1.5 flex-none rounded-full bg-[hsl(var(--accent))]" />
+                                                <span>{line}</span>
+                                              </li>
+                                            ))}
+                                          </ul>
+                                        </div>
+                                      </div>
+
+                                      {ex.outcome && (
+                                        <div className="space-y-2">
+                                          <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">
+                                            <GraduationCap className="h-3 w-3 text-[hsl(var(--accent))]" />
+                                            Outcome
+                                          </div>
+                                          <div className="rounded-xl border border-[hsl(var(--accent))]/20 bg-[hsl(var(--accent))]/5 p-3 text-sm font-medium text-foreground">
+                                            {ex.outcome}
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+
+                                    {/* #15 — label above proof tags */}
+                                    <div className="mt-5">
+                                      <div className="mb-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                                        Key deliverables
+                                      </div>
+                                      <div className="flex flex-wrap gap-2">
+                                        {ex.proof.map((h, hi) => (
+                                          <div
+                                            key={hi}
+                                            className="inline-flex items-center rounded-md border bg-background px-2.5 py-1 text-[11px] font-medium text-muted-foreground shadow-sm transition hover:text-foreground"
+                                          >
+                                            {h}
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
+                      </Card>
+                    </motion.div>
+                  ))}
+              </AnimatePresence>
             </div>
           </section>
 
+          {/* #25 — divider */}
+          <Separator className="mx-auto mt-16 max-w-xs opacity-30 md:mt-24" />
+
+          {/* ======================================================== */}
+          {/* #16 #17 — Process with connecting lines + CTA             */}
+          {/* ======================================================== */}
           <section id="process" className="mt-16 md:mt-24">
             <div className="flex flex-col items-center justify-between gap-6 text-center">
               <div>
-                <div className="text-xs font-medium text-muted-foreground">
-                  How It Works
-                </div>
+                <div className="text-xs font-medium text-muted-foreground">How It Works</div>
                 <h2 className="mt-2 font-serif text-3xl tracking-tight md:text-4xl">
                   Getting started is easy.
                 </h2>
@@ -767,51 +860,45 @@ export default function Home() {
 
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                {
-                  t: "Submit Your Application",
-                  d: "Tell us about your interests, goals, and aspirations. It only takes a few minutes to get started.",
-                  step: 1,
-                },
-                {
-                  t: "Free Strategy Session",
-                  d: "Receive a complimentary 20-minute strategy session with your best-fit mentor—no commitment required.",
-                  step: 2,
-                },
-                {
-                  t: "View Your Blueprint",
-                  d: "Get a personalized admissions blueprint outlining your path to success and recommended next steps.",
-                  step: 3,
-                },
-                {
-                  t: "Book Your Mentor",
-                  d: "Ready to go? Lock in your mentor and begin your journey toward standout applications and real accomplishments.",
-                  step: 4,
-                },
+                { t: "Submit Your Application", d: "Tell us about your interests, goals, and aspirations. It only takes a few minutes to get started.", step: 1 },
+                { t: "Free Strategy Session", d: "Receive a complimentary 20-minute strategy session with your best-fit mentor—no commitment required.", step: 2 },
+                { t: "View Your Blueprint", d: "Get a personalized admissions blueprint outlining your path to success and recommended next steps.", step: 3 },
+                { t: "Book Your Mentor", d: "Ready to go? Lock in your mentor and begin your journey toward standout applications and real accomplishments.", step: 4 },
               ].map((x, idx) => (
                 <div key={idx} className="group relative flex flex-col items-center text-center p-4">
-                  <div
-                    className="flex h-12 w-12 items-center justify-center rounded-full bg-[hsl(var(--primary))] text-lg font-bold text-primary-foreground shadow-lg transition-transform duration-300 group-hover:scale-110"
-                  >
+                  {/* #16 — connecting line between steps */}
+                  {idx < 3 && (
+                    <div className="pointer-events-none absolute left-[calc(50%+1.5rem)] top-6 hidden h-[2px] w-[calc(100%-3rem)] bg-gradient-to-r from-[hsl(var(--primary))]/40 to-[hsl(var(--primary))]/10 lg:block" />
+                  )}
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[hsl(var(--primary))] text-lg font-bold text-primary-foreground shadow-lg transition-transform duration-300 group-hover:scale-110">
                     {x.step}
                   </div>
-                  <div className="mt-4 font-medium">
-                    {x.t}
-                  </div>
-                  <div className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                    {x.d}
-                  </div>
+                  <div className="mt-4 font-medium">{x.t}</div>
+                  <div className="mt-2 text-sm text-muted-foreground leading-relaxed">{x.d}</div>
                 </div>
               ))}
             </div>
+
+            {/* #17 — CTA after process */}
+            <div className="mt-10 flex justify-center">
+              <Button size="lg" className="rounded-2xl" onClick={() => scrollTo("consultation")}>
+                Start your application
+                <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+              </Button>
+            </div>
           </section>
 
+          {/* #25 — divider */}
+          <Separator className="mx-auto mt-16 max-w-xs opacity-30 md:mt-24" />
+
+          {/* ======================================================== */}
+          {/* #18 #19 #20 — Consultation / Typeform                     */}
+          {/* ======================================================== */}
           <section id="consultation" className="mt-16 md:mt-24">
             <Card className="glass overflow-hidden rounded-3xl p-7 shadow-soft md:p-10">
               <div className="grid gap-6 md:grid-cols-12">
-                <div className="md:col-span-4">
-                  <div className="text-xs font-medium text-muted-foreground">
-                    Free consultation
-                  </div>
+                <div className="md:col-span-5">
+                  <div className="text-xs font-medium text-muted-foreground">Free consultation</div>
                   <h2 className="mt-2 font-serif text-3xl tracking-tight md:text-4xl">
                     Get matched to the right track.
                   </h2>
@@ -821,35 +908,90 @@ export default function Home() {
                   <p className="mt-4 text-xs text-muted-foreground">
                     We respond within 1–2 business days.
                   </p>
+
+                  {/* #26 — contact info */}
+                  <div className="mt-6 space-y-2 border-t pt-4">
+                    <div className="text-xs font-medium text-muted-foreground">Questions? Reach out anytime:</div>
+                    <a href="mailto:hello@launchpadprep.com" className="block text-sm text-foreground/80 hover:text-foreground transition-colors">
+                      hello@launchpadprep.com
+                    </a>
+                  </div>
                 </div>
 
-                <div className="md:col-span-8">
-                  <iframe
-                    src="https://form.typeform.com/to/yu0gXekQ"
-                    title="Launchpad Prep Application"
-                    className="w-full rounded-2xl border-0"
-                    style={{ height: "500px" }}
-                    allow="camera; microphone; autoplay; encrypted-media;"
-                  />
+                <div className="md:col-span-7">
+                  {/* #19 — loading background while iframe loads */}
+                  <div className="relative w-full rounded-2xl bg-muted/30">
+                    <div className="absolute inset-0 flex items-center justify-center text-sm text-muted-foreground">
+                      Loading form...
+                    </div>
+                    {/* #18 — responsive height */}
+                    <iframe
+                      src="https://form.typeform.com/to/yu0gXekQ"
+                      title="Launchpad Prep Application"
+                      className="relative z-10 w-full rounded-2xl border-0"
+                      style={{ height: "clamp(400px, 60vh, 600px)" }}
+                      allow="camera; microphone; autoplay; encrypted-media;"
+                    />
+                  </div>
                 </div>
               </div>
             </Card>
           </section>
 
-          <footer className="mt-16 border-t pt-10 text-sm text-muted-foreground">
-            <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
-              <div>&copy; {new Date().getFullYear()} Launchpad Prep. All rights reserved.</div>
-              <div className="flex items-center gap-4">
-                <a href="#tracks" className="hover:text-foreground">
-                  Tracks
+          {/* ======================================================== */}
+          {/* #21 #22 #26 #27 — Enhanced footer                        */}
+          {/* ======================================================== */}
+          <footer className="mt-16 border-t pt-10 pb-8 text-sm text-muted-foreground">
+            <div className="grid gap-8 md:grid-cols-3">
+              {/* Brand */}
+              <div>
+                <a href="/" className="flex items-center gap-2">
+                  <img src="/logo.png" alt="Launchpad Prep" className="h-8 w-8 rounded-xl object-contain" />
+                  <span className="font-serif text-base text-foreground">Launchpad Prep</span>
                 </a>
-                <a href="#process" className="hover:text-foreground">
-                  Process
-                </a>
-                <a href="#consultation" className="hover:text-foreground">
-                  Consultation
-                </a>
+                <p className="mt-2 text-xs leading-relaxed">
+                  Empowering the next generation of scholars through personalized mentorship.
+                </p>
               </div>
+
+              {/* Quick links */}
+              <div>
+                <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-foreground/60">Quick Links</div>
+                <div className="flex flex-col gap-1.5">
+                  <a href="#tracks" className="hover:text-foreground transition-colors">Tracks</a>
+                  <a href="#process" className="hover:text-foreground transition-colors">Process</a>
+                  <a href="#consultation" className="hover:text-foreground transition-colors">Apply</a>
+                  <a href="https://luma.com/launchpadprep?period=past" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+                    Events
+                  </a>
+                </div>
+              </div>
+
+              {/* Contact */}
+              <div>
+                <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-foreground/60">Contact</div>
+                <div className="flex flex-col gap-1.5">
+                  <a href="mailto:hello@launchpadprep.com" className="hover:text-foreground transition-colors">hello@launchpadprep.com</a>
+                </div>
+
+                <div className="mt-4 text-xs text-muted-foreground/70">
+                  Our mentors come from: Stanford, Harvard, MIT, Yale, Princeton, Columbia, UPenn, Duke
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t pt-6 md:flex-row">
+              <div>&copy; {new Date().getFullYear()} Launchpad Prep. All rights reserved.</div>
+
+              {/* #22 — back to top */}
+              <button
+                type="button"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Back to top
+                <ArrowUp className="h-3.5 w-3.5" />
+              </button>
             </div>
           </footer>
         </main>
