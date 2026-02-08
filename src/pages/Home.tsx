@@ -912,8 +912,8 @@ export default function Home() {
                   {/* #26 — contact info */}
                   <div className="mt-6 space-y-2 border-t pt-4">
                     <div className="text-xs font-medium text-muted-foreground">Questions? Reach out anytime:</div>
-                    <a href="mailto:hello@launchpadprep.com" className="block text-sm text-foreground/80 hover:text-foreground transition-colors">
-                      hello@launchpadprep.com
+                    <a href="mailto:launchpadprep0@gmail.com" className="block text-sm text-foreground/80 hover:text-foreground transition-colors">
+                      launchpadprep0@gmail.com
                     </a>
                   </div>
                 </div>
@@ -971,7 +971,8 @@ export default function Home() {
               <div>
                 <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-foreground/60">Contact</div>
                 <div className="flex flex-col gap-1.5">
-                  <a href="mailto:hello@launchpadprep.com" className="hover:text-foreground transition-colors">hello@launchpadprep.com</a>
+                  <a href="mailto:launchpadprep0@gmail.com" className="hover:text-foreground transition-colors">launchpadprep0@gmail.com</a>
+                  <a href="https://www.facebook.com/groups/1420935962654653" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Facebook Group</a>
                 </div>
 
                 <div className="mt-4 text-xs text-muted-foreground/70">
