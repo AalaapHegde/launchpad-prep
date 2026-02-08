@@ -972,7 +972,7 @@ export default function Home() {
                 <div className="mb-2 text-xs font-semibold uppercase tracking-wider text-foreground/60">Contact</div>
                 <div className="flex flex-col gap-1.5">
                   <a href="mailto:launchpadprep0@gmail.com" className="hover:text-foreground transition-colors">launchpadprep0@gmail.com</a>
-                  <a href="https://www.facebook.com/groups/1420935962654653" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">Facebook Group</a>
+                  <a href="https://www.facebook.com/groups/1420935962654653" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-foreground transition-colors">Facebook Group</a>
                 </div>
 
                 <div className="mt-4 text-xs text-muted-foreground/70">
