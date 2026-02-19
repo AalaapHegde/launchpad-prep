@@ -12,6 +12,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/lib/supabase";
 
 /* ------------------------------------------------------------------ */
 /*  Types & constants                                                  */
@@ -264,6 +265,27 @@ export default function ConsultationForm() {
         body: JSON.stringify(body),
       });
       if (!res.ok) throw new Error("Network error");
+
+      // Also save to Supabase for the admin panel
+      if (supabase) {
+        await supabase.from("submissions").insert({
+          program: data.program === "counseling" ? "College Counseling" : "Research Program",
+          student_name: data.name,
+          student_email: data.email,
+          student_grade: data.grade,
+          parent_name: data.parentName,
+          parent_email: data.parentEmail,
+          parent_phone: data.parentPhone,
+          school: data.school,
+          state: data.state,
+          major: data.major || null,
+          extracurriculars: data.extracurriculars || null,
+          interests: data.interests || null,
+          topics: data.topics || null,
+          ideas: data.ideas || null,
+        });
+      }
+
       setStatus("success");
     } catch {
       setStatus("error");
