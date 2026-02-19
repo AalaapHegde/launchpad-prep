@@ -215,7 +215,7 @@ export default function Home() {
     { label: "Tracks", href: "#tracks" },
     { label: "Process", href: "#process" },
     { label: "Events", href: "https://luma.com/launchpadprep?period=past", external: true },
-    { label: "Apply", href: "#consultation" },
+    { label: "Apply", href: "/apply", external: false },
   ];
 
   const tracks = [
@@ -399,7 +399,7 @@ export default function Home() {
             )}
             <Button
               className="rounded-2xl"
-              onClick={() => scrollTo("consultation")}
+              onClick={() => window.location.href = "/apply"}
             >
               Book a free strategy session
               <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
@@ -451,7 +451,7 @@ export default function Home() {
                 )}
                 <Button
                   className="mt-2 rounded-2xl"
-                  onClick={() => scrollTo("consultation")}
+                  onClick={() => window.location.href = "/apply"}
                 >
                   Get started
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
@@ -506,7 +506,7 @@ export default function Home() {
                 <Button
                   className="rounded-2xl"
                   size="lg"
-                  onClick={() => scrollTo("consultation")}
+                  onClick={() => window.location.href = "/apply"}
                 >
                   Get matched
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
@@ -552,7 +552,7 @@ export default function Home() {
                 <Button
                   className="mt-6 rounded-2xl"
                   size="lg"
-                  onClick={() => scrollTo("consultation")}
+                  onClick={() => window.location.href = "/apply"}
                 >
                   Get matched
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
@@ -718,7 +718,7 @@ export default function Home() {
                             )}
 
                             <div className="mt-7 flex flex-wrap gap-3">
-                              <Button size="lg" className="rounded-2xl" onClick={() => scrollTo("consultation")}>
+                              <Button size="lg" className="rounded-2xl" onClick={() => window.location.href = "/apply"}>
                                 Request a consultation
                                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
                               </Button>
@@ -881,7 +881,7 @@ export default function Home() {
 
             {/* #17 — CTA after process */}
             <div className="mt-10 flex justify-center">
-              <Button size="lg" className="rounded-2xl" onClick={() => scrollTo("consultation")}>
+              <Button size="lg" className="rounded-2xl" onClick={() => window.location.href = "/apply"}>
                 Start your application
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </Button>
@@ -892,48 +892,30 @@ export default function Home() {
           <Separator className="mx-auto mt-16 max-w-xs opacity-30 md:mt-24" />
 
           {/* ======================================================== */}
-          {/* #18 #19 #20 — Consultation / Typeform                     */}
+          {/* #18 — Apply CTA                                           */}
           {/* ======================================================== */}
           <section id="consultation" className="mt-16 md:mt-24">
-            <Card className="glass overflow-hidden rounded-3xl p-7 shadow-soft md:p-10">
-              <div className="grid gap-6 md:grid-cols-12">
-                <div className="md:col-span-5">
-                  <div className="text-xs font-medium text-muted-foreground">Free consultation</div>
-                  <h2 className="mt-2 font-serif text-3xl tracking-tight md:text-4xl">
-                    Get matched to the right track.
-                  </h2>
-                  <p className="mt-3 text-sm text-muted-foreground">
-                    Tell us the student's grade, interests, and goals. We'll recommend a track and next steps.
-                  </p>
-                  <p className="mt-4 text-xs text-muted-foreground">
-                    We respond within 1–2 business days.
-                  </p>
-
-                  {/* #26 — contact info */}
-                  <div className="mt-6 space-y-2 border-t pt-4">
-                    <div className="text-xs font-medium text-muted-foreground">Questions? Reach out anytime:</div>
-                    <a href="mailto:launchpadprep0@gmail.com" className="block text-sm text-foreground/80 hover:text-foreground transition-colors">
-                      launchpadprep0@gmail.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="md:col-span-7">
-                  {/* #19 — loading background while iframe loads */}
-                  <div className="relative w-full rounded-2xl bg-muted/30">
-                    <div className="absolute inset-0 flex items-center justify-center text-sm text-muted-foreground">
-                      Loading form...
-                    </div>
-                    {/* #18 — responsive height */}
-                    <iframe
-                      src="https://form.typeform.com/to/yu0gXekQ"
-                      title="Launchpad Prep Application"
-                      className="relative z-10 w-full rounded-2xl border-0"
-                      style={{ height: "clamp(400px, 60vh, 600px)" }}
-                      allow="camera; microphone; autoplay; encrypted-media;"
-                    />
-                  </div>
-                </div>
+            <Card className="glass overflow-hidden rounded-3xl p-10 shadow-soft md:p-14 text-center">
+              <div className="mx-auto max-w-lg">
+                <div className="text-xs font-medium text-muted-foreground">Free consultation</div>
+                <h2 className="mt-2 font-serif text-3xl tracking-tight md:text-4xl">
+                  Ready to get started?
+                </h2>
+                <p className="mt-3 text-sm text-muted-foreground">
+                  Tell us about the student's grade, interests, and goals. We'll recommend a track and next steps — we typically respond within a week.
+                </p>
+                <a href="/apply">
+                  <Button size="lg" className="mt-6 rounded-2xl text-base px-8">
+                    Apply now
+                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                  </Button>
+                </a>
+                <p className="mt-4 text-xs text-muted-foreground">
+                  Questions? Reach out at{" "}
+                  <a href="mailto:launchpadprep0@gmail.com" className="underline hover:text-foreground transition-colors">
+                    launchpadprep0@gmail.com
+                  </a>
+                </p>
               </div>
             </Card>
           </section>
@@ -960,7 +942,7 @@ export default function Home() {
                 <div className="flex flex-col gap-1.5">
                   <a href="#tracks" className="hover:text-foreground transition-colors">Tracks</a>
                   <a href="#process" className="hover:text-foreground transition-colors">Process</a>
-                  <a href="#consultation" className="hover:text-foreground transition-colors">Apply</a>
+                  <a href="/apply" className="hover:text-foreground transition-colors">Apply</a>
                   <a href="https://luma.com/launchpadprep?period=past" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                     Events
                   </a>
