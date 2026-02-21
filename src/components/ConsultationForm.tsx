@@ -415,7 +415,7 @@ export default function ConsultationForm() {
             {([
               {
                 key: "counseling" as Program,
-                label: "College Counseling",
+                label: "Profile Mentorship Program",
                 desc: "Craft an exceptional profile in 6 months with your mentor.",
                 Icon: GraduationCap,
               },
