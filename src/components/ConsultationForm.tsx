@@ -94,19 +94,19 @@ function validate(field: keyof FormData, value: string): string | null {
 /* ------------------------------------------------------------------ */
 
 const LABELS: Record<string, string> = {
-  name: "What's the student's full name?",
-  email: "Student's email address",
-  grade: "What grade is the student in?",
-  parentName: "Parent or guardian's full name",
-  parentEmail: "Parent or guardian's email",
-  parentPhone: "Best phone number to reach you",
-  school: "What school does the student attend?",
-  state: "What state are you located in?",
-  major: "Any majors or fields they're considering?",
-  extracurriculars: "What activities or clubs are they involved in?",
-  interests: "What are their academic passions or goals?",
-  topics: "What subjects or fields excite them most?",
-  ideas: "Do they have any specific research ideas in mind?",
+  name: "Student name",
+  email: "Student email",
+  grade: "Student grade",
+  parentName: "Parent / guardian name",
+  parentEmail: "Parent / guardian email",
+  parentPhone: "Parent / guardian phone",
+  school: "Current school",
+  state: "State",
+  major: "Intended major(s)",
+  extracurriculars: "Extracurricular activities",
+  interests: "Academic interests & goals",
+  topics: "Research topics of interest",
+  ideas: "Any specific research ideas?",
 };
 
 /* ------------------------------------------------------------------ */
@@ -300,9 +300,9 @@ export default function ConsultationForm() {
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[hsl(var(--primary))]/10">
           <Check className="h-7 w-7 text-[hsl(var(--primary))]" />
         </div>
-        <h3 className="font-serif text-2xl md:text-3xl">You're all set!</h3>
+        <h3 className="font-serif text-2xl md:text-3xl">Application submitted!</h3>
         <p className="max-w-sm text-sm text-muted-foreground">
-          Thanks for applying — we're excited to learn more about you. Our team will review your application and reach out within a week.
+          Thank you — we'll review your information and get back to you within 1–2 business days.
         </p>
       </div>
     );
@@ -314,9 +314,9 @@ export default function ConsultationForm() {
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-destructive/10">
           <AlertCircle className="h-7 w-7 text-destructive" />
         </div>
-        <h3 className="font-serif text-2xl md:text-3xl">Hmm, that didn't go through</h3>
+        <h3 className="font-serif text-2xl md:text-3xl">Something went wrong</h3>
         <p className="max-w-sm text-sm text-muted-foreground">
-          Something went wrong on our end. Give it another try, or feel free to email us directly at launchpadprep0@gmail.com.
+          We couldn't submit your application. Please try again or email us directly.
         </p>
         <Button
           variant="outline"
@@ -409,23 +409,20 @@ export default function ConsultationForm() {
   const stepContent = () => {
     if (step === 0) {
       return (
-        <div className="space-y-5">
-          <div>
-            <h3 className="font-serif text-2xl md:text-3xl">Which program is the best fit?</h3>
-            <p className="mt-2 text-sm text-muted-foreground">Pick the one that sounds most interesting — you can always explore both later.</p>
-          </div>
+        <div className="space-y-4">
+          <h3 className="font-serif text-2xl md:text-3xl">Which program are you interested in?</h3>
           <div className="grid gap-3 sm:grid-cols-2">
             {([
               {
                 key: "counseling" as Program,
                 label: "College Counseling",
-                desc: "Get one-on-one guidance on applications, essays, and finding the right school.",
+                desc: "Craft an exceptional profile in 6 months with your mentor.",
                 Icon: GraduationCap,
               },
               {
                 key: "research" as Program,
                 label: "Research Program",
-                desc: "Work with a mentor on real research — and publish something you're proud of.",
+                desc: "Hands-on research mentorship with publication-quality outcomes.",
                 Icon: FlaskConical,
               },
             ]).map(({ key, label, desc, Icon }) => {
@@ -467,11 +464,8 @@ export default function ConsultationForm() {
 
     if (step === 1) {
       return (
-        <div className="space-y-5">
-          <div>
-            <h3 className="font-serif text-2xl md:text-3xl">Tell us about yourself</h3>
-            <p className="mt-2 text-sm text-muted-foreground">We'll use this to personalize your experience and keep your family in the loop.</p>
-          </div>
+        <div className="space-y-4">
+          <h3 className="font-serif text-2xl md:text-3xl">Student & parent information</h3>
           <div className="grid gap-4 sm:grid-cols-2">
             {STEP_FIELDS[1].map(renderField)}
           </div>
@@ -482,19 +476,12 @@ export default function ConsultationForm() {
     // Step 2
     const fields = getStep2Fields(data.program);
     return (
-      <div className="space-y-5">
-        <div>
-          <h3 className="font-serif text-2xl md:text-3xl">
-            {data.program === "counseling"
-              ? "Almost there — a few more details"
-              : "Almost there — tell us what sparks your curiosity"}
-          </h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {data.program === "counseling"
-              ? "This helps us tailor our advice to the student's unique profile."
-              : "No wrong answers here — we just want to understand what excites the student."}
-          </p>
-        </div>
+      <div className="space-y-4">
+        <h3 className="font-serif text-2xl md:text-3xl">
+          {data.program === "counseling"
+            ? "School & counseling details"
+            : "School & research details"}
+        </h3>
         <div className="grid gap-4 sm:grid-cols-2">{fields.map(renderField)}</div>
       </div>
     );

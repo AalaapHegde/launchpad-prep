@@ -902,7 +902,7 @@ export default function Home() {
                   Ready to get started?
                 </h2>
                 <p className="mt-3 text-sm text-muted-foreground">
-                  Tell us about the student's grade, interests, and goals. We'll recommend a track and next steps — we typically respond within a week.
+                  Tell us the student's grade, interests, and goals. We'll recommend a track and next steps — we respond within 1–2 business days.
                 </p>
                 <a href="/apply">
                   <Button size="lg" className="mt-6 rounded-2xl text-base px-8">
